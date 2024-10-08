@@ -1,5 +1,11 @@
 # Cuda Version Manager
 
+## Check Current Versions
+
+```sh
+./check-versions.sh 
+```
+
 ## Steps to Update Cuda Version for Development
 
 ### 1. Install Cuda
