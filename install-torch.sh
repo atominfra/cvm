@@ -36,8 +36,8 @@ pip3 install --upgrade pip
 CUDA_VERSION=$1
 
 #xy
-CUDA_VERSION_TYPE_C=$(echo $CUDA_VERSION | cut -d '.' -f1,2 | tr -d '.')
-echo $CUDA_VERSION_TYPE_C
+CUDA_VERSION_TYPE_C=$(echo "$CUDA_VERSION" | cut -d '.' -f1,2 | tr -d '.')
+echo "$CUDA_VERSION_TYPE_C"
 
 http_get "https://download.pytorch.org/whl/cu${CUDA_VERSION_TYPE_C}/torch_stable.html"
 
@@ -47,4 +47,4 @@ if [ $? -ne 0 ]; then
 fi
 
 pip3 uninstall -y torch 
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu${CUDA_VERSION_TYPE_C}
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu"${CUDA_VERSION_TYPE_C}"
