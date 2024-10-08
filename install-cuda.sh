@@ -1,5 +1,19 @@
 #!/bin/bash
 
+source utils/http-get.sh
+source utils/red.sh
+
+# Check if CUDA version is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <cuda-version> (e.g., 12.6.1)"
+    exit 1
+fi
+
+if [[ ! "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "<cuda-version> must be in format x.y.z"
+    exit 1
+fi
+
 # Function to handle errors
 error_exit() {
     echo "Error: $1"
@@ -46,47 +60,6 @@ install_jq() {
 
 # Run the check
 check_jq
-
-
-# Add this to your .bashrc or .zshrc
-function red() {
-    echo -e "\e[31m$1\e[0m"
-}
-
-# Function to perform a GET request with a customizable error message
-http_get() {
-    local url="$1"
-    local response
-    local status_code
-
-    # Make the curl request
-    response=$(curl -s -w "%{http_code}" -o /tmp/curl_response "$url")
-
-    # Extract the HTTP status code
-    status_code="${response: -3}"
-    # Extract the HTTP response body
-    http_body=$(< /tmp/curl_response)
-
-    # Check if the response is not in the 2xx range
-    if [[ $status_code -lt 200 || $status_code -ge 300 ]]; then
-        return 1  # Return non-zero for error
-    fi
-
-    echo "$http_body"
-    return 0  # Return zero for success
-}
-
-
-# Check if CUDA version is provided
-if [ -z "$1" ]; then
-    echo "Usage: $0 <cuda-version> (e.g., 12.6.1)"
-    exit 1
-fi
-
-if [[ ! "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-    echo "<cuda-version> must be in format x.y.z"
-    exit 1
-fi
 
 CUDA_VERSION=$1
 
