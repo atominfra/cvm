@@ -49,6 +49,8 @@ else
   echo "Environment modules are already installed."
 fi
 
+source /etc/profile.d/modules.sh
+
 # Check if 'modules.sh' is already sourced in ~/.bashrc, if not add it
 grep -qxF 'source /etc/profile.d/modules.sh' ~/.bashrc || echo 'source /etc/profile.d/modules.sh' >> ~/.bashrc
 
