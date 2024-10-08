@@ -6,6 +6,11 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+if [[ ! "$1" =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+    echo "<cuda-version> must be in format x.y or x.y.z"
+    exit 1
+fi
+
 CUDA_VERSION=$(echo $1 | cut -d '.' -f 1,2)
 MODULE_DIR="/usr/share/modules/modulefiles/cuda"
 MODULE_FILE="$MODULE_DIR/$CUDA_VERSION"
