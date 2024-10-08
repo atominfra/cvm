@@ -49,6 +49,9 @@ else
   echo "Environment modules are already installed."
 fi
 
+# Check if 'modules.sh' is already sourced in ~/.bashrc, if not add it
+grep -qxF 'source /etc/profile.d/modules.sh' ~/.bashrc || echo 'source /etc/profile.d/modules.sh' >> ~/.bashrc
+
 # Write the module file contents
 sudo bash -c "cat > $MODULE_FILE" <<EOL
 #%Module1.0
