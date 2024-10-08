@@ -9,6 +9,11 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+if [[ ! "$1" =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+    echo "<cuda-version> must be in format x.y or x.y.z"
+    exit 1
+fi
+
 # Setup PIP
 
 # Detect the package manager
