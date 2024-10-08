@@ -85,6 +85,7 @@ fi
 
 if [[ ! "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     echo "<cuda-version> must be in format x.y.z"
+    exit 1
 fi
 
 CUDA_VERSION=$1
