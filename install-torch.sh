@@ -42,7 +42,6 @@ CUDA_VERSION=$1
 
 #xy
 CUDA_VERSION_TYPE_C=$(echo "$CUDA_VERSION" | cut -d '.' -f1,2 | tr -d '.')
-echo "$CUDA_VERSION_TYPE_C"
 
 http_get "https://download.pytorch.org/whl/cu${CUDA_VERSION_TYPE_C}/torch_stable.html"
 
