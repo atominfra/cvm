@@ -30,6 +30,25 @@ else
   echo "Module file for CUDA $CUDA_VERSION already exists. Overriding it."
 fi
 
+# Install prerequisites for modules if they are not installed
+if ! command -v module &> /dev/null; then
+  echo "Installing prerequisites for environment modules..."
+
+  # For Debian/Ubuntu
+  if [ -f /etc/debian_version ]; then
+    sudo apt update
+    sudo apt install -y environment-modules
+  # For CentOS/RHEL
+  elif [ -f /etc/redhat-release ]; then
+    sudo yum install -y environment-modules
+  else
+    echo "Unsupported operating system. Please install environment modules manually."
+    exit 1
+  fi
+else
+  echo "Environment modules are already installed."
+fi
+
 # Write the module file contents
 sudo bash -c "cat > $MODULE_FILE" <<EOL
 #%Module1.0
