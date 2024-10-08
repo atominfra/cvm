@@ -72,7 +72,7 @@ DISTRO=$(lsb_release -is | tr '[:upper:]' '[:lower:]')$(lsb_release -rs | tr -d 
 CUDA_VERSION_TYPE_A=$CUDA_VERSION
 
 # x-y
-CUDA_VERSION_TYPE_B=$(echo $CUDA_VERSION | sed 's/\./-/;s/\..*//')
+CUDA_VERSION_TYPE_B=$(echo "$CUDA_VERSION" | sed 's/\./-/;s/\..*//')
 
 ARCH=$(uname -m)
 
@@ -94,14 +94,14 @@ fi
 NVIDIA_DRIVER_VERSION=$(echo "$NVIDIA_CUDA_JSON" | jq -r '.nvidia_driver.version')
 
 # Download and install the necessary files
-wget https://developer.download.nvidia.com/compute/cuda/repos/${DISTRO}/${ARCH}/cuda-${DISTRO}.pin || error_exit "Failed to download cuda-${DISTRO}.pin"
-sudo mv cuda-${DISTRO}.pin /etc/apt/preferences.d/cuda-repository-pin-600 || error_exit "Failed to move cuda-${DISTRO}.pin"
+wget https://developer.download.nvidia.com/compute/cuda/repos/"${DISTRO}"/"${ARCH}"/cuda-"${DISTRO}".pin || error_exit "Failed to download cuda-${DISTRO}.pin"
+sudo mv cuda-"${DISTRO}".pin /etc/apt/preferences.d/cuda-repository-pin-600 || error_exit "Failed to move cuda-${DISTRO}.pin"
 
-wget https://developer.download.nvidia.com/compute/cuda/${CUDA_VERSION}/local_installers/cuda-repo-${DISTRO}-${CUDA_VERSION_TYPE_B}-local_${CUDA_VERSION_TYPE_A}-${NVIDIA_DRIVER_VERSION}-1_${ARCH_TYPE_B}.deb || error_exit "Failed to download cuda-repo-${DISTRO}-${CUDA_VERSION_TYPE_B}-local_${CUDA_VERSION_TYPE_A}-${NVIDIA_DRIVER_VERSION}-1_${ARCH_TYPE_B}.deb"
-sudo dpkg -i cuda-repo-${DISTRO}-${CUDA_VERSION_TYPE_B}-local_${CUDA_VERSION_TYPE_A}-${NVIDIA_DRIVER_VERSION}-1_${ARCH_TYPE_B}.deb || error_exit "Failed to install cuda-repo-${DISTRO}-${CUDA_VERSION_TYPE_B}-local_${CUDA_VERSION_TYPE_A}-${NVIDIA_DRIVER_VERSION}-1_${ARCH_TYPE_B}.deb"
+wget https://developer.download.nvidia.com/compute/cuda/"${CUDA_VERSION}"/local_installers/cuda-repo-"${DISTRO}"-"${CUDA_VERSION_TYPE_B}"-local_"${CUDA_VERSION_TYPE_A}"-"${NVIDIA_DRIVER_VERSION}"-1_${ARCH_TYPE_B}.deb || error_exit "Failed to download cuda-repo-${DISTRO}-${CUDA_VERSION_TYPE_B}-local_${CUDA_VERSION_TYPE_A}-${NVIDIA_DRIVER_VERSION}-1_${ARCH_TYPE_B}.deb"
+sudo dpkg -i cuda-repo-"${DISTRO}"-"${CUDA_VERSION_TYPE_B}"-local_"${CUDA_VERSION_TYPE_A}"-"${NVIDIA_DRIVER_VERSION}"-1_${ARCH_TYPE_B}.deb || error_exit "Failed to install cuda-repo-${DISTRO}-${CUDA_VERSION_TYPE_B}-local_${CUDA_VERSION_TYPE_A}-${NVIDIA_DRIVER_VERSION}-1_${ARCH_TYPE_B}.deb"
 
 # Move the keyring
-sudo cp /var/cuda-repo-${DISTRO}-${CUDA_VERSION_TYPE_B}-local/cuda-*-keyring.gpg /usr/share/keyrings/ || error_exit "Failed to move CUDA keyring to /usr/share/keyrings/"
+sudo cp /var/cuda-repo-"${DISTRO}"-"${CUDA_VERSION_TYPE_B}"-local/cuda-*-keyring.gpg /usr/share/keyrings/ || error_exit "Failed to move CUDA keyring to /usr/share/keyrings/"
 
 # Update the package list and install CUDA without user input
 sudo apt-get update -y || error_exit "Failed to update package list during CUDA installation"
