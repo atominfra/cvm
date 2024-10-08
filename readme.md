@@ -3,8 +3,6 @@
 
 ### 1. Check Current CUDA Toolkit and PyTorch CUDA Versions
 
-To check the versions currently installed:
-
 ```bash
 ./check-versions.sh
 ```
@@ -12,8 +10,6 @@ To check the versions currently installed:
 ---
 
 ### 2. Find All Available PyTorch CUDA Versions
-
-To list all the available PyTorch versions compatible with CUDA:
 
 ```bash
 ./find-torch-versions.sh
@@ -26,33 +22,44 @@ To list all the available PyTorch versions compatible with CUDA:
 #### 3.1 Install CUDA Toolkit
 
 ```bash
-./install-cuda.sh <cuda-version> 
-# Example:
+./install-cuda.sh <cuda-version>
+```
+
+**Example:**
+
+```bash
 ./install-cuda.sh 12.4.0
 ```
 
 #### 3.2 Load CUDA Toolkit
 
 ```bash
-./load-cuda.sh <cuda-version> 
-# Example:
+./load-cuda.sh <cuda-version>
+```
+
+**Example:**
+
+```bash
 ./load-cuda.sh 12.4.0
 ```
 
-**Note:** After loading the CUDA toolkit, run the following command to apply the changes in the current shell:
+**Note:** After loading the CUDA toolkit, run:
 
 ```bash
 source ~/.bashrc
 ```
+to apply the changes in the current shell.
 
 ---
 
 ### 4. Steps to Update PyTorch CUDA Version
 
-To update PyTorch with a specific CUDA version:
-
 ```bash
 ./install-torch.sh <cuda-version>
-# Example:
+```
+
+**Example:**
+
+```bash
 ./install-torch.sh 12.4.0
 ```
